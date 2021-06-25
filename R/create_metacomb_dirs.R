@@ -24,9 +24,10 @@ metacomb_create_cache = function(force_gen = FALSE, wipe = FALSE){
     # set up SQLite DB tables
     ## code file meta info
     DBI::dbExecute(.comb_db, "
-            CREATE TABLE IF NOT EXISTS code_files (
+            CREATE TABLE IF NOT EXISTS file_meta (
             file_id TEXT PRIMARY KEY,
             file_location TEXT UNIQUE,
+            file_type TEXT,
             last_update DATE DEFAULT (datetime('now', 'localtime')),
             last_updater TEXT
             )")

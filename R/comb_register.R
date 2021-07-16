@@ -10,7 +10,7 @@ comb_register = function(file_id, type = "script", location = NA){
   on.exit(DBI::dbDisconnect(.comb_db))
 
   # find file location if NA
-  if(is.na(location)){location = ifelse(type == "script", metacomb::comb_script(), NA)}
+  if(is.na(location)){location = ifelse(type == "script", metacomb::current_script(), NA)}
 
   # make info to input
   file_meta = paste("file_id" = paste0("'", file_id, "'"),

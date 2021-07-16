@@ -1,6 +1,6 @@
 # To create the empty directories and files for metacomb info
 
-metacomb_create_cache = function(force_gen = FALSE, wipe = FALSE){
+comb_create_cache = function(force_gen = FALSE, wipe = FALSE){
 
   # check required packages
   if(!any(c("RSQLite", "DBI") %in% rownames(installed.packages()))){

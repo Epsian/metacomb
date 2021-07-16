@@ -1,7 +1,7 @@
 # to register a code file and collect it's inputs/outputs
 
 # function to get location of current script
-comb_script = function(){
+current_script = function(){
 
   # get the path to current script
   ## test if interactive

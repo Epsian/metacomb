@@ -1,6 +1,6 @@
 # to create a link between two previously registered files
 
-comb_flow_register = function(from, to){
+comb_links = function(from, to){
 
   # connect to metacomb db
   .comb_db = metacomb::comb_connect()

@@ -24,4 +24,7 @@ register_file = function(file_id, type = "script", location = NA){
                        VALUES (", file_meta,")
                        "))
 
+  # return file_id
+  return(file_id)
+
 }

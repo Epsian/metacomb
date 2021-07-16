@@ -3,8 +3,8 @@
 comb_links = function(location, direction, custom_functions = NULL){
 
   # set if looking for in or out functions
-  if(direction == "in"){inout_functions = c("read.csv", "readRDS", custom_functions)} else
-  if(direction == "out"){inout_functions = c("write.csv", "saveRDS", "tmap_save", custom_functions)} else
+  if(direction == "in"){inout_functions = c("read.csv", "readRDS", "read_csv","readLines", custom_functions)} else
+  if(direction == "out"){inout_functions = c("write.csv", "saveRDS", "tmap_save", "write_csv", custom_functions)} else
   {stop("Invalid direction, pleae use 'in' or 'out'.")}
 
   # load in script

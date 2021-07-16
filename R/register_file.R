@@ -1,6 +1,6 @@
 # function to register the current file into the metacomb database
 
-comb_register = function(file_id, type = "script", location = NA){
+register_file = function(file_id, type = "script", location = NA){
 
   # connect to metacomb db
   .comb_db = metacomb::comb_connect()

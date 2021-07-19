@@ -14,7 +14,7 @@ register_file = function(file_id, type = "script", location = NA){
 
   # make info to input
   file_meta = paste("file_id" = paste0("'", file_id, "'"),
-                    "file_location" = location,
+                    "file_location" = paste0("'", location, "'"),
                     "file_type" = paste0("'", type, "'"),
                     "last_updater" = paste0("'", Sys.info()["user"], "'"), sep = ", ")
 

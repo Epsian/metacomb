@@ -17,7 +17,7 @@ current_script = function(){
   ## how long is the path to working directory?
   full_prefix = nchar(getwd())
   ## delete that many from full path
-  relative_path = paste0("'.", substr(full_path, full_prefix + 1, nchar(full_path)), "'")
+  relative_path = paste0(".", substr(full_path, full_prefix + 1, nchar(full_path)))
 
   # output relative path in project
   return(relative_path)

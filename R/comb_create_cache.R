@@ -35,8 +35,10 @@ comb_create_cache = function(force_gen = FALSE, wipe = FALSE){
     ## file flow table
     DBI::dbExecute(.comb_db, "
             CREATE TABLE IF NOT EXISTS file_flow (
-            send_file TEXT,
-            receive_file TEXT,
+            from_file_id TEXT,
+            to_file_id TEXT,
+            source_file_id TEXT,
+            link_key TEXT PRIMARY KEY,
             last_update DATE DEFAULT (datetime('now', 'localtime')),
             last_updater TEXT
             )")

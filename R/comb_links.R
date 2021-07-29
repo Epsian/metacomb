@@ -58,6 +58,9 @@ comb_links = function(location, direction, custom_in = NULL, custom_out = NULL){
   # clean out quotes
   quotes = unname(sapply(quotes, gsub, pattern = '\"', replacement = ''))
 
+  # stop is length 0
+  if(length(quotes) == 0)(return(NA))
+
   # keep only valid path in this project
   paths = quotes[sapply(quotes, FUN = function(item){file.exists(item) | dir.exists(item)})]
 

@@ -68,6 +68,9 @@ comb_network = function(){
   # set to fill page
   out_net$sizingPolicy$browser$fill = TRUE
 
+  # add legend
+  out_net = visNetwork::visLegend(out_net, main = "File Type")
+
   # output
   return(out_net)
 

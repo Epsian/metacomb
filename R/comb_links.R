@@ -59,11 +59,45 @@ comb_links = function(location, direction, custom_in = NULL, custom_out = NULL){
   # remove new NAs
   script = script[!is.na(script)]
 
+  # find path varaibles
+  vari_paths = script[grepl("^.+?\\s?=\\s?[\"\'\`].+?[\"\'\`]$|^.+?\\s?<-\\s?[\"\'\`].+?[\"\'\`]$", script)]
+  vari_paths = unlist(stringr::str_extract_all(vari_paths, "\".*?\"|\'.*?\'"))
+  vari_paths = unname(sapply(vari_paths, gsub, pattern = '\"', replacement = ''))
+
+  if(length(vari_paths) != 0){
+
+    vari_paths = vari_paths[sapply(vari_paths, FUN = function(item){file.exists(item) | dir.exists(item)})]
+
+    # get the variables containing these paths
+    replaced_inout = sapply(vari_paths, FUN = function(vari_path){
+
+      # find the line in script with this assignment
+      assigned_vari = script[grepl(vari_path, script)]
+
+      # split on `=`
+      assigned_vari = script[grepl(vari_path, script)]
+      assigned_vari = trimws(strsplit(assigned_vari, "=|<-")[[1]][1])
+
+      # find line varaible is used in
+      used_lines = script[grepl(assigned_vari, x = script)]
+
+      # replace those uses
+      replaced_lines = gsub(assigned_vari, paste0('"', vari_path, '"'), used_lines, fixed = TRUE)
+
+      return(replaced_lines)
+
+    }, simplify = TRUE)
+
+    # combine
+    combined_script = c(script, unname(unlist(replaced_inout)))
+
+  } else {combined_script = script}
+
   # keep only lines that have a in/out function as the vector above
-  script = script[which(as.logical(rowSums(sapply(inout_functions, grepl, x = script))))]
+  combined_script = combined_script[which(as.logical(rowSums(sapply(inout_functions, grepl, x = combined_script))))]
 
   # get everything in single or double quotes (possible paths)
-  quotes = unlist(stringr::str_extract_all(script, "\".*?\"|\'.*?\'"))
+  quotes = unlist(stringr::str_extract_all(combined_script, "\".*?\"|\'.*?\'"))
 
   # clean out quotes
   quotes = unname(sapply(quotes, gsub, pattern = '\"', replacement = ''))

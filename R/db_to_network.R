@@ -50,6 +50,8 @@ comb_network = function(){
                        "<br>Type: ", nodes$file_type,
                        "</p>")
 
+  # color nodes by type
+  nodes$group = nodes$file_type
 
   ## edges ####
 

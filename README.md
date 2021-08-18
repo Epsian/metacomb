@@ -27,7 +27,7 @@ For any script you want to register with metacomb, run:
 metacomb::metacomb("UNIQUE_NAME")
 ```
 
-The `UNIQUE_NAME` can be anything, but it should be something that you can recognize as this file. If your script has unique in/out function, you can specify them with the `custom_in` and `custom_out` arguments. There will be some console output when you run these you can ignore if not errors.
+Run this from within the script editor inside the file you want to register. The `UNIQUE_NAME` can be anything, but it should be something that you can recognize as this file. If your script has unique in/out function, you can specify them with the `custom_in` and `custom_out` arguments. There will be some console output when you run these you can ignore if not errors.
 
 ### Graph
 

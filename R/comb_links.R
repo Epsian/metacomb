@@ -20,44 +20,8 @@ comb_links = function(location, direction, custom_in = NULL, custom_out = NULL){
   # load in script
   script = readLines(location)
 
-  # remove all comments
-  script = gsub("#.+$", "", script)
-
-  # remove empties
-  script = script[script != ""]
-
-  # combine lines with pipe-likes
-  # start with the last line and work up
-  for(i in length(script):2){
-
-    # combine lines if line ends with +, %>%, or |>
-
-    # does this like end with a trailing pipe-like?
-    if(grepl("(?:%>%)\\s*$|(?:\\+)\\s*$|(?:\\|>)\\s*$", script[i-1])){
-
-      # then combine with next line
-      script[i-1] = paste0(script[i-1], script[i], collapse = " ")
-
-      # NA out current line
-      script[i] = NA
-
-    }
-
-    # does this like end with a starting pipe-like?
-    if(grepl("^\\s*(?:%>%)|^\\s*(?:\\+)|^\\s*(?:\\|>)", script[i])){
-
-      # then combine with next line
-      script[i-1] = paste0(script[i-1], script[i], collapse = " ")
-
-      # NA out current line
-      script[i] = NA
-
-    }
-
-  }
-
-  # remove new NAs
-  script = script[!is.na(script)]
+  # clean script
+  script = clean_script(script)
 
   # find path varaibles
   vari_paths = script[grepl("^.+?\\s?=\\s?[\"\'\`].+?[\"\'\`]$|^.+?\\s?<-\\s?[\"\'\`].+?[\"\'\`]$", script)]

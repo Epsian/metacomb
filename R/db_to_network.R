@@ -41,9 +41,6 @@ comb_network = function(hierarchical = FALSE){
   # change file_id to id for plotting
   colnames(nodes)[colnames(nodes) == "file_id"] = "id"
 
-  # rename file_level for hierarchical plotting
-  colnames(nodes)[colnames(nodes) == "file_level"] = "level"
-
   # add labels
   nodes$label = nodes$id
 
@@ -65,10 +62,43 @@ comb_network = function(hierarchical = FALSE){
   # add arrows
   edges$arrows = "to"
 
+  ## make network ####
+
+  cgraph = igraph::graph_from_data_frame(edges, directed = TRUE, vertices = nodes)
+
+  ## hierarchical plotting ####
+
+  if(hierarchical == TRUE){
+
+    # rename file_level for hierarchical plotting
+    colnames(nodes)[colnames(nodes) == "file_level"] = "level"
+
+    # make string NAs real NAs
+    nodes$level[nodes$level == "NA"] = NA
+
+    # get the max inward geodesic distances for each node
+    cdist = igraph::distances(cgraph, mode = "in")
+    cdist[is.infinite(cdist)] = NA
+    nodes$in_dist = (apply(cdist, 1, max, na.rm = TRUE) + 1) # add 1 for 0s
+
+    # put back in network
+    cgraph = igraph::set_vertex_attr(cgraph, "in_dist", value = nodes$in_dist)
+
+    # add level in is NA, keep existing (from manual assignment)
+    nodes$level = ifelse(is.na(nodes$level), nodes$in_dist, nodes$level)
+
+    # assign back to network
+    cgraph = igraph::set_vertex_attr(cgraph, "level", value = nodes$level)
+
+  }
+
   ## plot ####
 
+  # take network back to visnetwork format
+  plot_list = visNetwork::toVisNetworkData(cgraph)
+
   # make network
-  out_net = visNetwork::visOptions(visNetwork::visNetwork(nodes, edges), highlightNearest = TRUE)
+  out_net = visNetwork::visOptions(visNetwork::visNetwork(plot_list$nodes, plot_list$edges), highlightNearest = TRUE)
 
   # set to fill page
   out_net$sizingPolicy$browser$fill = TRUE

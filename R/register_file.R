@@ -1,6 +1,6 @@
 # function to register the current file into the metacomb database
 
-register_file = function(file_id, type = "script", location = NA){
+register_file = function(file_id, type = "script", level = NA, location = NA){
 
   # connect to metacomb db
   .comb_db = metacomb::comb_connect()
@@ -16,11 +16,12 @@ register_file = function(file_id, type = "script", location = NA){
   file_meta = paste("file_id" = paste0("'", file_id, "'"),
                     "file_location" = paste0("'", location, "'"),
                     "file_type" = paste0("'", type, "'"),
+                    "file_level" = paste0("'", level, "'"),
                     "last_updater" = paste0("'", Sys.info()["user"], "'"), sep = ", ")
 
   # now try to enter the info
   out = DBI::dbExecute(.comb_db, paste0("
-                       INSERT OR REPLACE INTO file_meta (file_id, file_location, file_type, last_updater)
+                       INSERT OR REPLACE INTO file_meta (file_id, file_location, file_type, file_level, last_updater)
                        VALUES (", file_meta,")
                        "))
 

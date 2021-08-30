@@ -1,6 +1,6 @@
 # To make a network dataframe for vis from database
 
-comb_network = function(){
+comb_network = function(hierarchical = FALSE){
 
   # setup ####
 
@@ -24,7 +24,7 @@ comb_network = function(){
   ## nodes ####
 
   # add files in edges that are not in nodes
-  edge_nodes = data.frame("file_id" = NA, "file_location" = unique(c(edges$from_file_id, edges$to_file_id)), "file_type" = "other", "last_update" = NA, "last_updater" = NA)
+  edge_nodes = data.frame("file_id" = NA, "file_location" = unique(c(edges$from_file_id, edges$to_file_id)), "file_type" = "other", "file_level" = NA, "last_update" = NA, "last_updater" = NA)
 
   # remove rows with known ids
   edge_nodes = edge_nodes[!(edge_nodes$file_location %in% nodes$file_id), ]
@@ -40,6 +40,9 @@ comb_network = function(){
 
   # change file_id to id for plotting
   colnames(nodes)[colnames(nodes) == "file_id"] = "id"
+
+  # rename file_level for hierarchical plotting
+  colnames(nodes)[colnames(nodes) == "file_level"] = "level"
 
   # add labels
   nodes$label = nodes$id
@@ -72,6 +75,9 @@ comb_network = function(){
 
   # add legend
   out_net = visNetwork::visLegend(out_net, main = "File Type")
+
+  # set hierarchical
+  if(hierarchical == TRUE){out_net = visNetwork::visHierarchicalLayout(out_net, direction = "LR")}
 
   # output
   return(out_net)

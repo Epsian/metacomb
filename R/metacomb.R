@@ -1,12 +1,12 @@
 # to register the current file and all io into comb database
 
-metacomb = function(file_id, custom_in = NULL, custom_out = NULL){
+metacomb = function(file_id, level = NA, custom_in = NULL, custom_out = NULL){
 
   # get current script location
   location = metacomb::current_script()
 
   # register current script in database
-  registered = metacomb::register_file(file_id, location = location)
+  registered = metacomb::register_file(file_id = file_id, level = level, location = location)
 
   # get all the ins and outs for this script
   script_in = metacomb::comb_links(location = location, direction = "in", custom_in = custom_in, custom_out = custom_out)

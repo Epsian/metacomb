@@ -28,6 +28,7 @@ comb_create_cache = function(force_gen = FALSE, wipe = FALSE){
             file_id TEXT PRIMARY KEY,
             file_location TEXT UNIQUE,
             file_type TEXT,
+            file_level TEXT,
             last_update DATE DEFAULT (datetime('now', 'localtime')),
             last_updater TEXT
             )")

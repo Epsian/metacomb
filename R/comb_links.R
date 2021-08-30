@@ -5,13 +5,13 @@ comb_links = function(location, direction, custom_in = NULL, custom_out = NULL){
   # set if looking for in or out functions
   if(direction == "in"){inout_functions = c(
 
-    "read.csv", "readRDS", "read_csv","readLines", custom_in
+    "read.csv", "readRDS", "read_csv","readLines", "read.xlsx", "fromJSON", custom_in
 
     )} else
   if(direction == "out"){inout_functions = c(
 
     "write.csv", "saveRDS", "tmap_save", "write_csv",
-    "pdf", "svg", "cairo_pdf", "cairo_ps", "bmp", "jpeg", "png", "tiff",
+    "pdf", "svg", "cairo_pdf", "cairo_ps", "bmp", "jpeg", "png", "tiff", "write_markdown",
     custom_out
 
     )} else

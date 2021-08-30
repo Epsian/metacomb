@@ -5,7 +5,7 @@
 clean_script = function(script_vector){
 
   # remove all comments
-  script = gsub("#.+$", "", script)
+  script = gsub("#.+$", "", script_vector)
 
   # remove empties
   script = script[script != ""]

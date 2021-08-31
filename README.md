@@ -2,7 +2,7 @@
 
 ## Install
 
-Install metacmob using:
+Install metacomb using:
 ```
 devtools::install_github("epsian/metacomb")
 ```

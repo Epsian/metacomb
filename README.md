@@ -28,7 +28,7 @@ To use metacomb, first open your RStudio project. In the console enter:
 metacomb::comb_create_cache()
 ```
 
-This will create a `./metacomb/` directory in your working directory, inside of which will be a SQLite database for metacomb. For now it is expected all paths are relative to this location. If you run this command again with the `wipe = TRUE` argument, it will empty the database.
+This will create a `.metacomb/` directory in your working directory, inside of which will be a SQLite database for metacomb. For now it is expected all paths are relative to this location. If you run this command again with the `wipe = TRUE` argument, it will empty the database.
 
 ### In Scripts
 

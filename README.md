@@ -1,10 +1,21 @@
 # Metacomb: Untangle your Project
 
+## Overview
+
+Metacomb is an R package to visualize the code flows in your R projects. It creates a network of data and code files, and visualized what data is procssess by which scripts. The network is interactive and annotated, so you can esily see all the steps that modify your data.
+
 ## Install
 
-Install metacmob using:
+Metacomb is still in a beta state, and is not yet on CRAN. To install Metacomb you can use either:
+
+The devtools package,
 ```
 devtools::install_github("epsian/metacomb")
+```
+
+or the remotes package:
+```
+remotes::install_github("epsian/metacomb")
 ```
 
 ## Usage
